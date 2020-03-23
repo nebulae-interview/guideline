@@ -24,7 +24,7 @@ Our Framework delivers a truly fullstack local environment for the micro-service
 
 ### Generate µService
 Generate a µService using `nebulae CLI`
-- micro-service name: ms-interview-<first_name>-<last-name>, Eg.  ms-interview-sebastian-molano
+- micro-service name: ms-interview-[first_name]-[last-name], Eg.  ms-interview-sebastian-molano
 - crud aggregate: source  
 
 ### Challenges
