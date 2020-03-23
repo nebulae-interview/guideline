@@ -88,15 +88,40 @@ Writing data on the event-store and Materialized view:
 
 From here two simultaneous flows are opened, one to indicate to the user that the command has been executed successfully and the other to reduce the generated domain-event and update the materialized-view.  
 
-5a. The backend validates the conditions of the command to indicate if it is possible or not to make the change, if possible it responds with an ack meaning the command executed successfully. This answer is published in the response-topic.  
+5a.The backend validates the conditions of the command to indicate if it is possible or not to make the change. If possible then responds with an ack meaning the command executed successfully. This answer is published in the response-topic.  
 6a. The api takes the answer from the response-topic.  
 7a. The api returns the command response in the HTTP-RESPONSE of the original request.  
 8a. The front-end displays the command success confirmation.  
 
 
-5b. The backend publishes a domain-event indicating the action taken on the aggregate (eg AccountEnabled).  
+5b. The backend validates the conditions of the command to indicate if it is possible or not to make the change. If possible then the backend publishes a domain-event indicating the action taken on the aggregate (eg AccountEnabled).  
 6b. The domain-event is shared to all µServices interested in that event.  
 7b. The backend of each µService updates the materialized view as indicated by the event (Eg enabling the acount). The data is updated in the differents µServices ready to be query.  
 
+### WRITE (CRUD Strategy + ES)
+CRUD Strategy + ES is intended for data-centric µServices, the idea is to combine a CRUD strategy instead of CQRS and generate domian-event every time an Aggregate changes in order keep updated other µServices
 
+<span style="color:red">**NOTE: This is the strategy used on the interview project**</span>
+
+Writing data on the materialized-view and publishing the event-domain:
+
+![CRUD/ES Write flow](https://github.com/nebulae-interview/guideline/raw/master/res/write_workflow_crud_es.png "CRUD/ES Write flow")
+
+1. User performs a modification command from the UI. 
+2. The front-end executes the command (mutation) by means of a synchronous HTTP call under the GraphQL language to the API.  
+3. The API publishes the command in the topic dedicated to the aggregate to which the command belongs (eg Account). 
+4. One of the µService's backend instances in charge of solving the request, obtaining the request from the aggregat-topic.  
+
+From here two simultaneous flows are opened, one to indicate to the user that the command has been executed successfully and the other to reduce the generated domain-event and update the materialized-view.  
+
+5a. The backend validates the conditions of the command to indicate if it is possible or not to make the change. If possible then Backend modifies the information in the materialized view and query the data after the update.  
+6a. The materialized view returns the information of the aggregate after being updated.  
+7a. The backend publishes the result of the command in the response-topic.  
+8a. The API takes the answer from the respone-topic.  
+9a. The API returns the command response in the HTTP-RESPONSE of the original request.  
+10a. The front-end displays the information of the command and the aggreate data after the update to the user.  
+
+5b. The backend validates the conditions of the command to indicate if it is possible or not to make the change. If possible then The backend publishes a domain-event indicating the action taken on the aggregate (eg AccountEnabled).  
+6b. The domain-event is shared to all µServices interested in that event.  
+7b. The backend of each µService updates the materialized view as indicated by the event (Eg enabling the acount). The data is updated in the differents µServices ready to be query.  
 
