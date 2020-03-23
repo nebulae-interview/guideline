@@ -48,5 +48,55 @@ Below is a high-level component diagram, which exposes the different modules and
 
 ![µService Platform](https://github.com/nebulae-interview/guideline/raw/master/res/microservices_platform.png "µService Platform")
 
+## MicroService data-flow
+
+The following diagrams describes how all the layers of the µService interacts to achieve CQRS/ES reading and writing flows.  
+
+Diagrams leyend:
+- Solid line and white background numeral: Request flow - from the user to the processor
+- Dashed line and black background numeral: Response flow -  from the procesor to the user
+- Black line: synchronous communications (blocking)
+- Blue Line: asynchronous communications (non-blocking using publish-subscribe)
+- Red Line: communications triggered by domain-events published in the event-store
+
+### READ: Querying data on the materialized view
+
+![CQRS/ES Read flow](https://github.com/nebulae-interview/guideline/raw/master/res/read_workflow.png "CQRS/ES Read flow")
+
+1. User makes a request to read information from the UI. 
+2. The front-end makes a query using a synchronous HTTP call under the GraphQL API language.  
+3. The API publishes the query request in the topic dedicated to the aggregate to which the query belongs to (eg Account). 
+4. One of the µService's backend instances in charge of solving the request, obtaining the request from the aggregat-topic.  
+5. The Backend queries the information in the materialized view. 
+6. The materialized view returns the information of the queried aggregate. 
+7. The backend publishes the result of the query in the response-topic. 
+8. The API takes the answer from the respone-topic. 
+9. The API returns the query response in the HTTP-RESPONSE of the original request. 
+10. The front-end displays the information of the query to the user. 
+
+
+### WRITE (Pure CQRS/ES)
+Pure CQRS/ES is only intended for complex and highly-concurrent micro-services.  On DDD this would be the core microservices.
+
+Writing data on the event-store and Materialized view:
+![Pure CQRS/ES Write flow](https://github.com/nebulae-interview/guideline/raw/master/res/write_workflow_pure_cqrs_es.png "Pure CQRS/ES Write flow")
+
+1. User performs a modification command from the UI. 
+2. The front-end executes the command (mutation) by means of a synchronous HTTP call under the GraphQL language to the API.  
+3. The API publishes the command in the topic dedicated to the aggregate to which the command belongs (eg Account). 
+4. One of the µService's backend instances in charge of solving the request, obtaining the request from the aggregat-topic.  
+
+From here two simultaneous flows are opened, one to indicate to the user that the command has been executed successfully and the other to reduce the generated domain-event and update the materialized-view.  
+
+5a. The backend validates the conditions of the command to indicate if it is possible or not to make the change, if possible it responds with an ack meaning the command executed successfully. This answer is published in the response-topic.  
+6a. The api takes the answer from the response-topic.  
+7a. The api returns the command response in the HTTP-RESPONSE of the original request.  
+8a. The front-end displays the command success confirmation.  
+
+
+5b. The backend publishes a domain-event indicating the action taken on the aggregate (eg AccountEnabled).  
+6b. The domain-event is shared to all µServices interested in that event.  
+7b. The backend of each µService updates the materialized view as indicated by the event (Eg enabling the acount). The data is updated in the differents µServices ready to be query.  
+
 
 
