@@ -20,12 +20,18 @@ Our Framework delivers a truly fullstack local environment for the micro-service
 
 ## Code challenge
 
+The idea is to build a news viewer from different news sources.  We are going to use [News API](https://newsapi.org/) as our main news source.  
+The first step is to register at [News API](https://newsapi.org/), get an [API KEY](https://newsapi.org/register) and understand the [documentation](https://newsapi.org/docs).  
 
+Then we are going to create a CRUD for [News Sources](https://newsapi.org/docs/endpoints/sources), the CRUD is composed by a listing and a detail for each news source.  In the detail page we are going to be able to query the news source and retrieve news from it, these news are going to be displayed as cards on the detial page.  
 
 ### Generate µService
 Generate a µService using `nebulae CLI`
 - micro-service name: ms-interview-[first_name]-[last-name], Eg.  ms-interview-sebastian-molano
 - crud aggregate: source  
+
+CLI command:  
+`nebulae generate microservice --frontend-id emi --api-id emi-gateway --project-context INTERVIEW --template-git-url https://github.com/nebulae-interview/ms-micro-service-template  --git-repo-directory-path interview  --repo-git-url https://github.com/nebulae-interview/ms-interview --crud-entity source`
 
 ### Challenges
 
