@@ -158,6 +158,11 @@ The workflow between the front-end, api and backend to query a lot of data shoul
 10. the frontend must re-calculate calculate a cyclic redundancy check (CRC) on the decompressed data and check if the CRC is the same.  If both CRC are identical means nothing was lost in the process
 11. the frontend must display all the information using virtualization so it won't affect react performance
 
+##### 02.3 Bonus - WebWorkers
+
+Use a WebWorker for steps (8, 9, 10 and 11) in order to avoid freezing the UI while de-compressing the data.
+
+
 Note: The backend workflow must be coded using RxJS
 
 ### Submit project
