@@ -49,6 +49,16 @@ This command is going to generate a fullstack microservice with a simple (and fu
 - In the Backend try to use RxJS as much as possible
 - part of the challenge is your ability to understand as much of the platform by reading the code.  If you step into a problem or need an explanation to go further down please contact us.
 
+#### 00.1 Users to LogIn
+Please use the following users on order to LogIn in the Platform
+
+- English User:
+  - User: interview
+  - Password: interview
+- Spanish User:
+  - User: entrevista
+  - Password: entrevista
+
 
 #### 01 Add the the fields needed for each source.
 
