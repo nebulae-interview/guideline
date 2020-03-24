@@ -8,6 +8,10 @@ NebulaE solutions are based on our own MicroService Framework.  The main differe
 
 The idea is that you can run the interview chanllenge within the framework itself, to do so we are going to give you some guidelines to understand a little bit about the microservice framework and as well the guideline for the test itself.  
 
+We have created [this video](https://youtu.be/U-aPSRNjflU) showcasing the microservice creation and edition, as well contains important notes for this interview.  
+
+[![Video Lecture](https://img.youtube.com/vi/U-aPSRNjflU/0.jpg)](https://www.youtube.com/watch?v=U-aPSRNjflU)
+
 If you have some inquiry please write to: sebastian.molano@nebulae.com.co
 
 PD: although this interview guidelines are in english, NebulaE is proudly a Colombian company with a local team but we acknowledge that english is a primary need for us (developers) to be able to work and constantly learn new and advacne techniques.
