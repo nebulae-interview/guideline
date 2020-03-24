@@ -14,7 +14,7 @@ We have created [this video](https://youtu.be/U-aPSRNjflU) showcasing the micros
 
 If you have some inquiry please write to: sebastian.molano@nebulae.com.co
 
-PD: although this interview guidelines are in english, NebulaE is proudly a Colombian company with a local team but we acknowledge that english is a primary need for us (developers) to be able to work and constantly learn new and advacne techniques.
+PD: although this interview guidelines are in english, NebulaE is proudly a Colombian company with a local team but we acknowledge that english (at least reading capabilities) is a primary need for us (developers) to be able to work and constantly learn new and advance techniques.
 
 ## Architecture overview
 
