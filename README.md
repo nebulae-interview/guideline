@@ -121,6 +121,27 @@ After quering the news these must be displayed to the user you can use the compo
 Your are free to show these news on cards, listing or the component you think is better. 
 
 
+##### 02.2 Query a huge amounts of news at once
+The idea is to query a lot of news in a single request.  For this you need to:
+- Use advance strategies in FrontEnd to be able to show a lot of information with good performance
+- Collect and accumlulate the data in the backend, calcualte a CRC of the contents, compress the data, send it to the FrontEnd, decompress it, check the contents using the CRC.
+
+To display a lot of information in the Backend without compromising React performance you can read about virtualization techniques such [react-window](https://react-window.now.sh/) and react Memoize.  
+
+The workflow between the front-end, api and backend to query a lot of data should be:
+1. The user selects a `from date` and a `to date` with a delta of at least one month
+2. The user selects a `pageSize` of 500 or more
+3. The backend must query all the information in the source and concat each resulting page until the info is completed
+4. The backend must calculate a cyclic redundancy check (CRC) of the original contents
+5. The backend must compress the data using gzip-2, this results in a Uint8array
+6. The backend must format the Uint8array data in Base64 string in order to send it as string
+7. The backend must return to the frontend the CRC and the Base64 data
+8. The frontend must take the Base64 data and restablish the compressed data in Uint8array
+9. Thre frontend must decompress the Uint8array to obtain the original data
+10. the frontend must re-calculate calculate a cyclic redundancy check (CRC) on the decompressed data and check if the CRC is the same.  If both CRC are identical means nothing was lost in the process
+11. the frontend must display all the information using virtualization so it won't affect react performance
+
+
 ### Submit project
 
 Publish the entire µService in your own github account. Feel free to remove the pre-build `.git` directory from the project so you can assign it to your own git repo.  
