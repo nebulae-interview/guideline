@@ -10,6 +10,8 @@ The idea is that you can run the interview chanllenge within the framework itsel
 
 If you have some inquiry please write to: sebastian.molano@nebulae.com.co
 
+PD: although this interview guidelines are in english, NebulaE is proudly a Colombian company with a local team but we acknowledge that english is a primary need for us (developers) to be able to work and constantly learn new and advacne techniques.
+
 ## Architecture overview
 
 In order to being able to understand the porject structure and the reasoning behind NebulaE's Framework please review the [Architecture Overview](../master/architecture_overview.MD)
@@ -126,7 +128,7 @@ The idea is to query a lot of news in a single request.  For this you need to:
 - Use advance strategies in FrontEnd to be able to show a lot of information with good performance
 - Collect and accumlulate the data in the backend, calcualte a CRC of the contents, compress the data, send it to the FrontEnd, decompress it, check the contents using the CRC.
 
-To display a lot of information in the Backend without compromising React performance you can read about virtualization techniques such [react-window](https://react-window.now.sh/) and react Memoize.  
+To display a lot of information in the frontend without compromising React performance you can read about virtualization techniques such [react-window](https://react-window.now.sh/) and react Memoize.  
 
 The workflow between the front-end, api and backend to query a lot of data should be:
 1. The user selects a `from date` and a `to date` with a delta of at least one month
